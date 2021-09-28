@@ -1,29 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Actor');
 
 /* Global Styles */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Montserrat', sans-serif;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100vh;
-    
-}
-div, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    padding: 0;
-}
-img {
-    max-width: 100%;
-    height: auto;
-}
-.wrapper {
-    margin: 0 5%;
-    padding: 5% 0;
-}
 
 .error {
    border: 2px red solid; 
@@ -34,35 +11,7 @@ img {
 
 }
 
-.alert {
-    width: 40%;
-}
-.alert-success {
-    background-color:#5cb85c;
-    color: #ffffff;
-    border-radius: 3px;
-    margin: 10px 30px;
-    padding: 10px;
-}
 
-.label-badge {
-    border: 1px solid transparent;
-}
-
-
-
-.button-small {
-    display: block;
-    margin-left: 15px;
-    padding: 5px;
-    border: 1px solid gray;
-    border-radius: 2px;
-    background-color: rgb(218, 211, 211);
-    color: #000000;
-    text-decoration: none;
-    font-size: 0.75rem;
-    cursor: pointer;
-}
 
 .list-title {
     text-align: center;
@@ -73,43 +22,20 @@ img {
 
 
 /*Footer*/
-.footer {
-    height: 80px;
-    background-color: #e6e6e6;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
 
-.footer-links {
-    display: flex;
-    justify-content: space-around;
-    width: 40%;
-    
-}
 
 /*Landing Page*/
 .landing {
     color: #253858;
 }
 
-.header {
-    display: flex;
-    justify-content: space-around;
-    width: 80%;
-    margin: auto;
 
-}
 
 .landing-image-wrapper {
     width: 50%;
     /* background-color: #6c63ff; */
 }
 
-#logo-heading {
-    text-align: center;
-    margin-top: 70px;
-}
 
 .logos {
     width: 90%;
@@ -122,14 +48,14 @@ img {
 
 
 /* Home Page (dashboard) Styles */
-.messages-container {
+/* .messages-container {
     height: 70px;
 }
 
 .messages {
     width: 60%;
     margin: auto;
-}
+} */
 
 .issues-container {
     min-height: 600px;
