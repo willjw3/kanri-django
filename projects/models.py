@@ -12,7 +12,7 @@ class Board(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
 
     class Meta:
-        ordering = ['start_date']
+        ordering = ['created_on']
     
     def __str__(self):
         return self.title

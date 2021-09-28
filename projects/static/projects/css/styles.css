@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Actor');
+
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    
+}
+div, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+.wrapper {
+    margin: 0 5%;
+    padding: 5% 0;
+}
+
+.error {
+   border: 2px red solid; 
+}
+.control-group input, label {
+    margin: 5px 0;
+    line-height: 1.5;
+
+}
+
+.alert {
+    width: 40%;
+}
+.alert-success {
+    background-color:#5cb85c;
+    color: #ffffff;
+    border-radius: 3px;
+    margin: 10px 30px;
+    padding: 10px;
+}
+
+.label-badge {
+    border: 1px solid transparent;
+}
+
+
+
+.button-small {
+    display: block;
+    margin-left: 15px;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    background-color: rgb(218, 211, 211);
+    color: #000000;
+    text-decoration: none;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.list-title {
+    text-align: center;
+    margin: 10px;
+}
+
+/* Header Styles */
+
+
+/*Footer*/
+.footer {
+    height: 80px;
+    background-color: #e6e6e6;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+    
+}
+
+/*Landing Page*/
+.landing {
+    color: #253858;
+}
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: auto;
+
+}
+
+.landing-image-wrapper {
+    width: 50%;
+    /* background-color: #6c63ff; */
+}
+
+#logo-heading {
+    text-align: center;
+    margin-top: 70px;
+}
+
+.logos {
+    width: 90%;
+    margin: auto;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+
+
+/* Home Page (dashboard) Styles */
+.messages-container {
+    height: 70px;
+}
+
+.messages {
+    width: 60%;
+    margin: auto;
+}
+
+.issues-container {
+    min-height: 600px;
+    display: flex;
+    justify-content: center;
+}
+.issues-container-mobile {
+    width: 450px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.custom-indicators {
+    display: none;
+}
+
+
+.issues-list-wrapper {
+    width: 450px;
+    margin: 0 5px;
+    background-color: lightgray;
+    border-radius: 2px;
+}
+
+.issues-list {
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+.issue-clip {
+    margin: 0 10px;
+    margin-bottom: 10px;
+    padding: 10px 10px;
+    box-shadow: 0 0 4px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+.issue-clip h2 {
+    margin: 0;
+}
+
+.issue-full {
+    max-width: 550px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: lightgray;
+}
+
+.issue-meta {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 30px;
+}
+
+.blue-link {
+    text-decoration: none;
+    color: dodgerblue;
+    font-weight: 600;
+}
+
+.issue-description-badge {
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: orange;
+}
+
+.action-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.issue-link {
+    margin: 10px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 1.15em;
+    font-weight: 600;
+    text-decoration: none;
+    color: #666666;
+}
+.issue-link:hover {
+    background-color: darkgray;
+}
+
+/* Issue Detail Page*/
+.detail-link {
+    text-decoration: none;
+    color: #000000;
+}
+.detail-link:hover {
+    color: #666666;
+}
+
+.comment-list-meta {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Registration Page */
+.form-content-section {
+    width: 450px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+}
+fieldset {
+    border: 3px solid rgb(9, 125, 241);
+}
+.form-legend {
+    font-size: 1.67em;
+    font-weight: 600;
+    /* background-color: orange;
+    border-radius: 2px;
+    padding: 3px; */
+}
+
+/*Login Page*/
+.login-image-wrapper {
+    width: 25%;
+    margin: 20px auto;
+}
+
+/* Logout Page*/
+
+
+/* Profile Page*/
+.profile-wrapper {
+    width: 500px;
+    padding: 10px;
+    border: 2px solid rgb(9, 125, 241);
+}
+
+
+@media (max-width: 1200px) {
+    #intro-block h1 {
+        font-size: 2em;
+    }
+}
+
+@media (min-width: 950px) { 
+    .issues-container-mobile {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 950px) { 
+    .issues-container {
+      display: none;
+    }
+    .carousel-inner {
+        margin-bottom: 50px;
+    }
+    .custom-indicators {
+        display: block;
+    }
+  
+  }
+
+
+@media (max-width: 900px) {
+    .wrapper {
+        margin: 5%;
+        padding: 5% 0;
+    }
+    .header {
+        display: flex;
+        flex-direction: column; 
+        justify-content: flex-start;
+        align-items: center; 
+    }
+    .landing-image-wrapper {
+        width: 75%;
+        margin-top: 70px;
+    }
+    .logos {
+        width: 95%;
+        grid-template-columns: 1fr 1fr;
+    }
+    .login-image-wrapper {
+        width: 50%;
+    }
+    .footer {
+        flex-direction: column;
+    }
+    .footer-links {
+        width: 100%;
+    }
+    
+}
+
+@media (max-width: 700px) {
+    #intro-block h1 {
+        font-size: 1.5em;
+    }
+    .form-content-section {
+        width: 300px;
+    }
+}
+
+@media (max-width: 500px) {
+    .issues-container-mobile {
+        width: 300px;
+    }
+    .issues-list-wrapper {
+        width: 300px;
+    }
+}
+
+
+

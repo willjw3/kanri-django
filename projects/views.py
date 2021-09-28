@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the Kanri index.")
+def landing(request):
+    return render(request, 'projects/landing.html', {'title': 'Kanri | Welcome'})
