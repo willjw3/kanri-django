@@ -1,7 +1,13 @@
 {% extends "projects/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="row">
+    <a 
+    href="{% url 'board-create' %}"
+    class="btn btn-secondary mx-auto issue-create-link"  
+    data-bs-target="#boardsModal"
+    data-target-url="{% url 'board-create' %}"
+    ><i class="fas fa-plus-circle"></i> Add a Board</a>
+    <div class="row mt-4">
         <div class="col-xl-3 col-md-6">
             <div class="card bg-primary text-white mb-4">
                 <div class="card-body">Primary Card</div>
@@ -39,6 +45,20 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="boardModal" tabindex="-1" aria-labelledby="boardModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="boardModalLabel">New Board</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger ms-2 mb-3" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
     <div class="row">
         <div class="col-xl-6">
             <div class="card mb-4">

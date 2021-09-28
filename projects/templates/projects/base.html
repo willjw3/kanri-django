@@ -220,10 +220,10 @@
             // Create new issue      
             $(".issue-create-link").click(function(e) {
               e.preventDefault();
-              var $issueModal = $("#issueModal");
+              var $boardModal = $("#boardModal");
               var target_url = $(this).data("target-url");
-              $(".modal-body", $issueModal).load(target_url, function() {
-                $issueModal.modal("show")
+              $(".modal-body", $boardModal).load(target_url, function() {
+                $boardModal.modal("show")
               })
             })
     

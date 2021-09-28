@@ -2,14 +2,12 @@ from django import forms
 from django.forms import widgets
 from .models import Board, Task, Comment
 
-# class ProjectForm(forms.ModelForm):
+class BoardForm(forms.ModelForm):
 
-#     class Meta:
-#         model = Project
-#         fields = ('title', 'description', 'start_date', 'due_date', 'status')
-#         widgets = {
-#             'description': forms.Textarea()
-#         }
+    class Meta:
+        model = Board
+        fields = ('name', 'about', 'status')
+    
 
 class TaskForm(forms.ModelForm):
     

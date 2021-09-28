@@ -1,0 +1,18 @@
+{% load crispy_forms_tags %}
+    <div>
+        {% if user.email == 'btdemo@bugtracker.com' %}
+            <p class="alert alert-danger text-center mx-auto w-75">Sorry. New boards cannot not be posted with a demo account. Create your own account for full app functionality.</p>
+        {% endif %}
+        <div class="form-content-section">
+            <form class="issue-form" action="" method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="form-legend">Edit Board</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit">Post New Board</button>
+                </div>
+            </form>
+        </div>
+    </div>

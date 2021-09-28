@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 class Board(models.Model):
-    STATUSES = [('ACTIVE', "active"), ('SUSPENDED', "suspended"), ('COMPLETED', "completed")]
+    STATUSES = [('ACTIVE', "active"), ('INACTIVE', "inactive"), ('CLOSED', "closed")]
 
     name = models.CharField(max_length=100)
     about = models.TextField()
@@ -21,7 +21,7 @@ class Task(models.Model):
     USERS = [(user.username, user.username) for user in User.objects.all()]
     STATUSES = [('OPEN', "open"), ('IN PROGRESS', "in progress"), ('CLOSED', "closed")]
     
-
+    board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='tasks', default=1)
     title = models.CharField(max_length=255)
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
@@ -40,7 +40,7 @@ class Task(models.Model):
 
 
 class Comment(models.Model):
-    issue = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='comments', default='Test Task - Ignore')
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='comments', default='Test Task - Ignore')
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     content = models.TextField()
     posted_on = models.DateTimeField(auto_now_add=True)
