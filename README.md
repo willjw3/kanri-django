@@ -3,8 +3,7 @@
 ## KANRI
 ### *A project management tool prototype*  
 
-**Tech Stack**
-
+**Tech Stack**  
 - Python (Django)
 - SQLite
 
