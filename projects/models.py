@@ -7,7 +7,7 @@ class Board(models.Model):
     STATUSES = [('ACTIVE', "active"), ('INACTIVE', "inactive"), ('CLOSED', "closed")]
 
     name = models.CharField(max_length=100)
-    about = models.TextField()
+    about = models.TextField(default='')
     status = models.CharField(max_length=20, choices=STATUSES, default='ACTIVE')
     created_on = models.DateTimeField(default=timezone.now)
 
@@ -15,17 +15,17 @@ class Board(models.Model):
         ordering = ['created_on']
     
     def __str__(self):
-        return self.title
+        return self.name
 
 class Task(models.Model):
     USERS = [(user.username, user.username) for user in User.objects.all()]
-    STATUSES = [('OPEN', "open"), ('IN PROGRESS', "in progress"), ('CLOSED', "closed")]
+    STATUSES = [('TODO', "todo"), ('IN PROGRESS', "in progress"), ('CLOSED', "closed")]
     
     board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='tasks', default=1)
     title = models.CharField(max_length=255)
-    content = models.TextField()
+    content = models.TextField(blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     assigned_to = models.CharField(max_length=50, choices=USERS, default='admin')
     status = models.CharField(max_length=20, choices=STATUSES, default='OPEN')
     label = models.CharField(max_length=30, default='')

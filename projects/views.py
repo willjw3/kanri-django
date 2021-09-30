@@ -14,7 +14,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 from .models import Board, Task, Comment
 from django.contrib.auth.models import User
-from .forms import BoardForm
+from .forms import BoardForm, TaskForm
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.utils.timezone import make_aware
@@ -69,8 +69,8 @@ class BoardListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['active_boards'] = Board.objects.filter(status='ACTIVE')
-        context['suspended_boards'] = Board.objects.filter(status='INACTIVE')
-        context['completed_boards'] = Board.objects.filter(status='CLOSED')
+        context['inactive_boards'] = Board.objects.filter(status='INACTIVE')
+        context['closed_boards'] = Board.objects.filter(status='CLOSED')
         context['form'] = BoardForm()
         return context
 
@@ -82,7 +82,7 @@ class BoardCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         issue = form.save(commit=False)
         form.instance.author = self.request.user
-        if form.instance.author.email == "btdemo@bugtracker.com":
+        if form.instance.author.email == "kanridemo@kanri.com":
             messages.warning(self.request, f'Issue not saved. You are using a demo account. Demo accounts do not have write permissions. Create an account to enjoy full app functionality.')
             return redirect('boards')
         issue.save()
@@ -92,6 +92,44 @@ class BoardCreateView(LoginRequiredMixin, CreateView):
         return reverse('boards')
 
 class AllBoardsView(View):
+    def get(self, request, *args, **kwargs):
+        view = BoardListView.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = BoardCreateView.as_view()
+        return view(request, *args, **kwargs)
+
+class TaskListView(LoginRequiredMixin, ListView):
+    model = Task
+    template_name = 'projects/tasks.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['todo_tasks'] = Board.objects.filter(status='TODO')
+        context['in_progress_boards'] = Board.objects.filter(status='IN PROGRESS')
+        context['closed_boards'] = Board.objects.filter(status='CLOSED')
+        context['form'] = TaskForm()
+        return context
+
+class TaskCreateView(LoginRequiredMixin, CreateView):
+    model = Task
+    form_class = TaskForm
+    template_name = 'projects/task_form.html'
+
+    def form_valid(self, form):
+        issue = form.save(commit=False)
+        form.instance.author = self.request.user
+        if form.instance.author.email == "kanridemo@kanri.com":
+            messages.warning(self.request, f'Issue not saved. You are using a demo account. Demo accounts do not have write permissions. Create an account to enjoy full app functionality.')
+            return redirect('tasks')
+        issue.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('tasks')
+
+class AllTasksView(View):
     def get(self, request, *args, **kwargs):
         view = BoardListView.as_view()
         return view(request, *args, **kwargs)

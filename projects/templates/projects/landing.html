@@ -49,7 +49,7 @@
                       {% if user.is_authenticated %}
                         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                             <li><a class="dropdown-item" href="#">My Profile</a></li>
-                            <li><a class="dropdown-item" href="#">My Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{% url 'dashboard' %}">My Dashboard</a></li>
                             <li><a class="dropdown-item" href="#">Logout</a></li>
                         </ul>
                       {% else %}
