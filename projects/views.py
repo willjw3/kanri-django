@@ -14,7 +14,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse
 from .models import Board, Task, Comment
 from django.contrib.auth.models import User
-from .forms import BoardForm, TaskForm
+from .forms import BoardForm, TaskForm, CommentForm
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.utils.timezone import make_aware
@@ -104,12 +104,15 @@ class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'projects/tasks.html'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['todo_tasks'] = Board.objects.filter(status='TODO')
-        context['in_progress_boards'] = Board.objects.filter(status='IN PROGRESS')
-        context['closed_boards'] = Board.objects.filter(status='CLOSED')
+        context['board_id'] = self.kwargs['board_id']
+        context['todo_tasks'] = Task.objects.filter(status='TODO')
+        context['in_progress_tasks'] = Task.objects.filter(status='IN PROGRESS')
+        context['closed_tasks'] = Task.objects.filter(status='CLOSED')
         context['form'] = TaskForm()
+        print(context['board_id'])
         return context
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
@@ -127,13 +130,63 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('tasks')
+        task = self.get_object()
+        return reverse('tasks', kwargs={'pk': task.board.pk})
 
-class AllTasksView(View):
+
+class BoardDetailView(View):
     def get(self, request, *args, **kwargs):
-        view = BoardListView.as_view()
+        view = TaskListView.as_view()
         return view(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        view = BoardCreateView.as_view()
+        view = TaskCreateView.as_view()
+        return view(request, *args, **kwargs)
+
+class CommentCreateView(SingleObjectMixin, FormView):
+    model = Task
+    form_class = CommentForm
+    template_name = 'task_detail.html'
+
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(CommentCreateView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+    
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        form.instance.author = self.request.user
+        if not form.instance.author.email == "btdemo@bugtracker.com":
+            comment.task = self.object
+            comment.save()
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        task = self.get_object()
+        return reverse('board-detail', kwargs={'board_id': task.board.pk})
+        # return reverse('issues-home')
+
+class TaskDisplayView(DetailView):
+    model = Task
+    context_object_name = 'task'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm()
+
+        return context
+
+class TaskDetailView(View):
+
+    def get(self, request, *args, **kwargs):
+        view = TaskDisplayView.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = CommentCreateView.as_view()
         return view(request, *args, **kwargs)

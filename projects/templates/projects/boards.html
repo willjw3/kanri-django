@@ -13,9 +13,9 @@
             {% for board in active_boards %}
                 <div class="col-xl-3 col-md-6 d-flex align-items-stretch">
                     <div class="card bg-primary text-white mb-4 w-100">
-                        <div class="card-body">{{ board.name }}</div>
+                        <div class="card-body"><a href="{% url 'board-detail' board_id=board.id %}" class="text-decoration-none text-white">{{ board.name }}</a></div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Details</a>
+                            <a class="small text-white stretched-link" href="{% url 'board-detail' board.id %}">View Details</a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                         </div>
                     </div>
