@@ -1,0 +1,14 @@
+
+<div class="form-content-section">
+    <form class="delete-form" action="" method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="form-legend">Delete Issue</legend>
+            <h2 style="color: red;">Are you sure you want to delete the issue "{{ object.title }}"?</h2>
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-danger" type="submit">Yes, Delete</button>
+            <a style="text-decoration: none;" href="{% url 'boards' %}" class="button-submit ms-2">Cancel</a>
+        </div>
+    </form>
+</div>

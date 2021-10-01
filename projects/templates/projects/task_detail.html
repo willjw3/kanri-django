@@ -20,7 +20,20 @@
         </section>
         {% if object.author == user %}
             <div class="action-box">
-                
+                <a 
+                    id="update-link"
+                    style="text-decoration: none;" 
+                    class="btn btn-outline-success update-link" 
+                    href="{% url 'task-update' board_id=board_id pk=object.id %}"
+                    data-target-url="{% url 'task-update' board_id=board_id pk=object.id %}"
+                ><i class="fas fa-edit"></i> edit</a>
+                <a 
+                    id="delete-link"
+                    style="text-decoration: none; margin-left: 10px;" 
+                    class="btn btn-outline-danger delete-link" 
+                    href="{% url 'task-delete' board_id=board_id pk=object.id %}"
+                    data-target-url="{% url 'task-delete' board_id=board_id pk=object.id %}"
+                ><i class="fas fa-trash-alt"></i> delete</a>
             </div>
         {% endif %} 
         <hr>

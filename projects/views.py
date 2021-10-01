@@ -193,3 +193,41 @@ class TaskDetailView(View):
     def post(self, request, *args, **kwargs):
         view = CommentCreateView.as_view()
         return view(request, *args, **kwargs)
+
+class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Task
+    form_class= TaskForm
+    template_name = 'projects/task_form.html'
+
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        messages.success(self.request, f'Update saved.')
+        return super().form_valid(form)
+
+
+    def test_func(self):
+        task = self.get_object() 
+        if self.request.user == task.author:
+            return True
+        return False
+    
+    def get_success_url(self):
+        return reverse('board-detail', kwargs={'board_id': self.kwargs['board_id']})
+
+class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Task
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['board_id'] = self.kwargs['board_id']
+        print(context)
+
+    def test_func(self):
+        task = self.get_object() 
+        if self.request.user == task.author:
+            return True
+        return False
+
+    def get_success_url(self):
+        return reverse('board-detail', kwargs={'board_id': self.kwargs['board_id']})

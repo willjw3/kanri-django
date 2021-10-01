@@ -172,39 +172,39 @@
             $(document).ready(function() {
               var modalId = localStorage.getItem('openModal');
               if (modalId !== null) {
-                var $issueDetailModal = $("#issueDetailModal");
+                var $taskDetailModal = $("#taskDetailModal");
                 target_url = localStorage.getItem('target-url')
-                $(".modal-body", $issueDetailModal).load(target_url, function() {
+                $(".modal-body", $taskDetailModal).load(target_url, function() {
     
-                $issueDetailModal.modal("show");
+                $taskDetailModal.modal("show");
     
                 $("#update-link").click(function (e) {
                   e.preventDefault();
-                  var $issueUpdateModal = $("#issueDetailModal");
+                  var $taskUpdateModal = $("#taskDetailModal");
                   var target_url = $(this).data("target-url");
                   
-                  $(".modal-body", $issueUpdateModal).load(target_url, function() {
+                  $(".modal-body", $taskUpdateModal).load(target_url, function() {
                     $('.issue-form').attr("action", target_url)
                     
-                    $issueUpdateModal.modal("show");
+                    $taskUpdateModal.modal("show");
                   })
                 })
     
                 $("#delete-link").click(function (e) {
                   e.preventDefault();
-                  var $issueDeleteModal = $("#issueDetailModal");
+                  var $taskDeleteModal = $("#taskDetailModal");
                   var target_url = $(this).data("target-url");
               
-                  $(".modal-body", $issueDeleteModal).load(target_url, function() {
+                  $(".modal-body", $taskDeleteModal).load(target_url, function() {
                     $('.delete-form').attr("action", target_url)
                     
-                    $issueDeleteModal.modal("show");
+                    $taskDeleteModal.modal("show");
                   })
                 })
                 // Set Issue Detail modal to open on home page load
                 $("#comment-submit").click(function (e) {
                   
-                  localStorage.setItem('openModal', '#issueDetailModal')
+                  localStorage.setItem('openModal', '#taskDetailModal')
                   localStorage.setItem('target-url', target_url)
                 })
               });
@@ -247,31 +247,31 @@
     
                 $("#update-link").click(function (e) {
                   e.preventDefault();
-                  var $issueUpdateModal = $("#issueDetailModal");
+                  var $taskUpdateModal = $("#taskDetailModal");
                   var target_url = $(this).data("target-url");
                   
-                  $(".modal-body", $issueUpdateModal).load(target_url, function() {
+                  $(".modal-body", $taskUpdateModal).load(target_url, function() {
                     $('.issue-form').attr("action", target_url)
                     
-                    $issueUpdateModal.modal("show");
+                    $taskUpdateModal.modal("show");
                   })
                 })
     
                 $("#delete-link").click(function (e) {
                   e.preventDefault();
-                  var $issueDeleteModal = $("#issueDetailModal");
+                  var $taskDeleteModal = $("#taskDetailModal");
                   var target_url = $(this).data("target-url");
               
-                  $(".modal-body", $issueDeleteModal).load(target_url, function() {
+                  $(".modal-body", $taskDeleteModal).load(target_url, function() {
                     $('.delete-form').attr("action", target_url)
                     
-                    $issueDeleteModal.modal("show");
+                    $taskDeleteModal.modal("show");
                   })
                 })
                 // Set Issue Detail modal to open on home page load
                 $("#comment-submit").click(function (e) {
                   
-                  localStorage.setItem('openModal', '#issueDetailModal')
+                  localStorage.setItem('openModal', '#taskDetailModal')
                   localStorage.setItem('target-url', target_url)
                 })
               });
