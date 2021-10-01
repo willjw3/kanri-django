@@ -36,7 +36,8 @@ class Task(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('issue-detail', kwargs={'pk': self.pk})
+        print(self.kwargs)
+        return reverse('board-detail', kwargs={'pk': self.pk})
 
 
 class Comment(models.Model):

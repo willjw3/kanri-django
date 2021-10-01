@@ -1,6 +1,13 @@
 {% extends "projects/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+    <p class="font-weight-bold">Current Board: <span class="text-primary">{{ board_name }}</span></p>
+    <a 
+        href="{% url 'task-create' pk=board_id %}"
+        class="btn btn-secondary mx-auto issue-create-link sticky-top"  
+        data-bs-target="#taskModal"
+        data-target-url="{% url 'task-create' pk=board_id %}"
+    ><i class="fas fa-plus-circle"></i> Add a Task</a>
     <div class="messages-container">
         {% if messages %}
             <div class="messages">
@@ -11,54 +18,33 @@
         {% endif %}
     </div>
     <div class="issues-container">
-        <div class="issues-list-wrapper py-3">
-            <h5 class="list-title mb-4">Open</h5>
+        <div class="issues-list-wrapper py-3 mx-2">
+            <h5 class="text-center mb-4 py-2 rounded">ToDo</h5>
             <div class="issues-list">     
                 {% for task in todo_tasks %}
                     {% if board_id == task.board.id %}
-                        <!-- <div class="issue-clip">
-                            <h3><a 
-                                href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                                class="detail-link" 
-                                data-bs-target="#taskDetailModal"
-                                data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                            >{{ task.title }}</a></h3>
-                            <div class="issue-meta">
-                                <a href="#" class="blue-link"> {{ task.author }}</a>
-                                <small class="ms-2">{{ task.date_posted }}</small>
-                            </div>
-                            <a 
-                                style="text-decoration: none;" 
-                                href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                                class="detail-link"
-                                data-bs-target="#taskDetailModal"
-                                data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                            ><small>Comments: {{ task.comments.count }}</small></a>
-                            <hr>
-                            <button class="badge bg-warning rounded-pill text-dark label-badge">{{ task.label }}</button>
-                            <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
-                        </div>  -->
                         <div class="d-flex align-items-stretch">
-                            <div class="card bg-warning text-dark mb-4 w-100">
-                                <div class="card-body"><a 
-                                    href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                                    class="detail-link" 
-                                    data-bs-target="#taskDetailModal"
-                                    data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                                >{{ task.title }}</a></div>
-                                <div class="card-footer d-flex flex-column justify-content-between">
+                            <div class="card text-dark mb-4 w-100 rounded issue-card">
+                                <div class="card-body">
+                                    <a 
+                                        href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                        class="detail-link" 
+                                        data-bs-target="#taskDetailModal"
+                                        data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                    ><h3>{{ task.title }}</h3></a>
                                     <div class="issue-meta">
                                         <a href="#" class="blue-link"> {{ task.author }}</a>
                                         <small class="ms-2">{{ task.date_posted }}</small>
                                     </div>
+                                    <hr>
                                     <a 
                                         style="text-decoration: none;" 
-                                        href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                                        class="detail-link"
+                                        href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                        class="detail-link d-block"
                                         data-bs-target="#taskDetailModal"
-                                        data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
+                                        data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
                                     ><small>Comments: {{ task.comments.count }}</small></a>
-                                    <button class="badge bg-dark rounded-pill text-white border border-dark w-25">{{ task.label }}</button>
+                                    <button class="badge bg-warning rounded-pill text-dark border border-warning">{{ task.label }}</button>
                                     <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
                                 </div>
                             </div>
@@ -67,64 +53,72 @@
                 {% endfor %} 
             </div>
         </div>
-        <div class="issues-list-wrapper py-3">
-            <h5 class="list-title mb-4">In Progress</h5>
+        <div class="issues-list-wrapper py-3 mx-2">
+            <h5 class="text-center mb-4 py-2 rounded">In Progress</h5>
             <div class="issues-list">
                 {% for task in in_progress_tasks %}
                     {% if board_id == task.board.id %}
-                    <div class="issue-clip">
-                        <h3><a 
-                            href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                            class="detail-link" 
-                            data-bs-target="#taskDetailModal"
-                            data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                        >{{ task.title }}</a></h3>
-                        <div class="issue-meta">
-                            <a href="#" class="blue-link"> {{ task.author }}</a>
-                            <small class="ms-2">{{ task.date_posted }}</small>
+                        <div class="d-flex align-items-stretch">
+                            <div class="card text-dark mb-4 w-100 rounded issue-card">
+                                <div class="card-body">
+                                    <a 
+                                        href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                        class="detail-link" 
+                                        data-bs-target="#taskDetailModal"
+                                        data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                    ><h3>{{ task.title }}</h3></a>
+                                    <div class="issue-meta">
+                                        <a href="#" class="blue-link"> {{ task.author }}</a>
+                                        <small class="ms-2">{{ task.date_posted }}</small>
+                                    </div>
+                                    <hr>
+                                    <a 
+                                        style="text-decoration: none;" 
+                                        href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                        class="detail-link d-block"
+                                        data-bs-target="#taskDetailModal"
+                                        data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                    ><small>Comments: {{ task.comments.count }}</small></a>
+                                    <button class="badge bg-warning rounded-pill text-dark border border-warning">{{ task.label }}</button>
+                                    <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
+                                </div>
+                            </div>
                         </div>
-                        <a 
-                            style="text-decoration: none;" 
-                            href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                            class="detail-link"
-                            data-bs-target="#taskDetailModal"
-                            data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                        ><small>Comments: {{ task.comments.count }}</small></a>
-                        <hr>
-                        <button class="badge bg-warning rounded-pill text-dark label-badge">{{ task.label }}</button>
-                        <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
-                    </div>
                     {% endif %}   
                 {% endfor %}
             </div>
         </div>
-        <div class="issues-list-wrapper py-3">
-            <h5 class="list-title mb-4">Closed</h5>
+        <div class="issues-list-wrapper py-3 mx-2">
+            <h5 class="text-center mb-4 py-2 rounded">Closed</h5>
             <div class="issues-list">
                 {% for task in closed_tasks %}
                     {% if board_id == task.board.id %}
-                    <div class="issue-clip">
-                        <h3><a 
-                            href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                            class="detail-link" 
-                            data-bs-target="#taskDetailModal"
-                            data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                        >{{ task.title }}</a></h3>
-                        <div class="issue-meta">
-                            <a href="#" class="blue-link"> {{ task.author }}</a>
-                            <small class="ms-2">{{ task.date_posted }}</small>
-                        </div>
-                        <a 
-                            style="text-decoration: none;" 
-                            href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                            class="detail-link"
-                            data-bs-target="#taskDetailModal"
-                            data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                        ><small>Comments: {{ task.comments.count }}</small></a>
-                        <hr>
-                        <button class="badge bg-warning rounded-pill text-dark label-badge">{{ task.label }}</button>
-                        <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
-                    </div>  
+                        <div class="d-flex align-items-stretch">
+                            <div class="card text-dark mb-4 w-100 rounded issue-card">
+                                <div class="card-body">
+                                    <a 
+                                        href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                        class="detail-link" 
+                                        data-bs-target="#taskDetailModal"
+                                        data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                    ><h3>{{ task.title }}</h3></a>
+                                    <div class="issue-meta">
+                                        <a href="#" class="blue-link"> {{ task.author }}</a>
+                                        <small class="ms-2">{{ task.date_posted }}</small>
+                                    </div>
+                                    <hr>
+                                    <a 
+                                        style="text-decoration: none;" 
+                                        href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                        class="detail-link d-block"
+                                        data-bs-target="#taskDetailModal"
+                                        data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                    ><small>Comments: {{ task.comments.count }}</small></a>
+                                    <button class="badge bg-warning rounded-pill text-dark border border-warning">{{ task.label }}</button>
+                                    <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
+                                </div>
+                            </div>
+                        </div>  
                     {% endif %} 
                 {% endfor %}
             </div>
@@ -133,168 +127,182 @@
 
     
 <!-- New Task Modal -->
-<div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="taskModalLabel">New Task</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="taskModalLabel">New Task</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger ms-2 mb-3" data-bs-dismiss="modal">Cancel</button>
+            </div>
         </div>
-        <div class="modal-body"></div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-danger ms-2 mb-3" data-bs-dismiss="modal">Cancel</button>
         </div>
-      </div>
     </div>
-  </div>
 
 <!-- Task Detail Modal -->
-<div class="modal fade" id="taskDetailModal" tabindex="-1" aria-labelledby="taskDetailModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="taskDetailModalLabel">Task Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="taskDetailModal" tabindex="-1" aria-labelledby="taskDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="taskDetailModalLabel">Task Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="detail-modal-body" class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+            </div>
         </div>
-        <div id="detail-modal-body" class="modal-body">
-            
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
-        </div>
-      </div>
     </div>
-  </div>
 
 <!-- Task Update Modal -->
-<div class="modal fade" id="taskUpdateModal" tabindex="-1" aria-labelledby="taskUpdateModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="taskUpdateModalLabel">Task Delete</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="taskUpdateModal" tabindex="-1" aria-labelledby="taskUpdateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="taskUpdateModalLabel">Task Delete</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+            </div>
         </div>
-        <div class="modal-body"></div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
         </div>
-      </div>
     </div>
-  </div>
 
 <!-- Carousel for mobile screens. Hidden until 950px and below-->
-    <div class="issues-container-mobile">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="issues-list-wrapper py-2">
-                    <h5 class="list-title mb-3">Open</h5>
-                    <div class="issues-list">
-                        {%  for task in todo_tasks %}
-                            {% if board_id == task.board.id %}
-                            <div class="issue-clip">
-                                <h3><a 
-                                    href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                                    class="detail-link" 
-                                    data-bs-target="#taskDetailModal"
-                                    data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                                >{{ task.title }}</a></h3>
-                                <div class="issue-meta">
-                                    <a href="#" class="blue-link"> {{ task.author }}</a>
-                                    <small class="ms-2">{{ task.date_posted }}</small>
+
+<div class="issues-container-mobile">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="issues-list-wrapper py-2">
+                <h5 class="list-title mb-3 text-center">Open</h5>
+                <div class="issues-list">
+                    {%  for task in todo_tasks %}
+                        {% if board_id == task.board.id %}
+                            <div class="d-flex align-items-stretch">
+                                <div class="card text-dark mb-4 w-100 rounded issue-card">
+                                    <div class="card-body">
+                                        <a 
+                                            href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                            class="detail-link" 
+                                            data-bs-target="#taskDetailModal"
+                                            data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                        ><h3>{{ task.title }}</h3></a>
+                                        <div class="issue-meta">
+                                            <a href="#" class="blue-link"> {{ task.author }}</a>
+                                            <small class="ms-2">{{ task.date_posted }}</small>
+                                        </div>
+                                        <hr>
+                                        <a 
+                                            style="text-decoration: none;" 
+                                            href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                            class="detail-link d-block"
+                                            data-bs-target="#taskDetailModal"
+                                            data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                        ><small>Comments: {{ task.comments.count }}</small></a>
+                                        <button class="badge bg-warning rounded-pill text-dark border border-warning w-25">{{ task.label }}</button>
+                                        <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
+                                    </div>
                                 </div>
-                                <a 
-                                    style="text-decoration: none;" 
-                                    href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                                    class="detail-link"
-                                    data-bs-target="#taskDetailModal"
-                                    data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                                ><small>Comments: {{ task.comments.count }}</small></a>
-                                <hr>
-                                <button class="badge bg-warning rounded-pill text-dark label-badge">{{ task.label }}</button>
-                                <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
                             </div> 
-                            {% endif %}  
-                        {% endfor %}
-                    </div>
+                        {% endif %}  
+                    {% endfor %}
                 </div>
-              </div>
-              <div class="carousel-item">
-                <div class="issues-list-wrapper py-2">
-                    <h5 class="list-title mb-3">In Progress</h5>
-                    <div class="issues-list">
-                        {% for task in in_progress_tasks %}
-                            {% if board_id == task.board.id %}
-                            <div class="issue-clip">
-                                <h3><a 
-                                    href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                                    class="detail-link" 
-                                    data-bs-target="#taskDetailModal"
-                                    data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                                >{{ task.title }}</a></h3>
-                                <div class="issue-meta">
-                                    <a href="#" class="blue-link"> {{ task.author }}</a>
-                                    <small class="ms-2">{{ task.date_posted }}</small>
-                                </div>
-                                <a 
-                                    style="text-decoration: none;" 
-                                    href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                                    class="detail-link"
-                                    data-bs-target="#taskDetailModal"
-                                    data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                                ><small>Comments: {{ task.comments.count }}</small></a>
-                                <hr>
-                                <button class="badge bg-warning rounded-pill text-dark label-badge">{{ task.label }}</button>
-                                <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
-                            </div> 
-                            {% endif %}  
-                        {% endfor %}
-                    </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="issues-list-wrapper py-2">
-                    <h5 class="list-title mb-3">Closed</h5>
-                    <div class="issues-list py-2">
-                        {% for task in closed_tasks %}
-                            {% if board_id == task.board.id %}
-                            <div class="issue-clip">
-                                <h3><a 
-                                    href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                                    class="detail-link" 
-                                    data-bs-target="#taskDetailModal"
-                                    data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                                >{{ task.title }}</a></h3>
-                                <div class="issue-meta">
-                                    <a href="#" class="blue-link"> {{ task.author }}</a>
-                                    <small class="ms-2">{{ task.date_posted }}</small>
-                                </div>
-                                <a 
-                                    style="text-decoration: none;" 
-                                    href="{% url 'task-detail' board_id=board_id task_id=task.id %}" 
-                                    class="detail-link"
-                                    data-bs-target="#taskDetailModal"
-                                    data-target-url="{% url 'task-detail' board_id=board_id task_id=task.id %}"
-                                ><small>Comments: {{ task.comments.count }}</small></a>
-                                <hr>
-                                <button class="badge bg-warning rounded-pill text-dark label-badge">{{ task.label }}</button>
-                                <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
-                            </div>   
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div> 
-              </div>
             </div>
           </div>
-    </div>
-    <div class="custom-indicators">
-        <div class="carousel-indicators position-relative">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="indy-btn active bg-dark" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="indy-btn bg-dark" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="indy-btn bg-dark" aria-label="Slide 3"></button>
+          <div class="carousel-item">
+            <div class="issues-list-wrapper py-2">
+                <h5 class="list-title mb-3">In Progress</h5>
+                <div class="issues-list">
+                    {% for task in in_progress_tasks %}
+                        {% if board_id == task.board.id %}
+                            <div class="d-flex align-items-stretch">
+                                <div class="card text-dark mb-4 w-100 rounded issue-card">
+                                    <div class="card-body">
+                                        <a 
+                                            href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                            class="detail-link" 
+                                            data-bs-target="#taskDetailModal"
+                                            data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                        ><h3>{{ task.title }}</h3></a>
+                                        <div class="issue-meta">
+                                            <a href="#" class="blue-link"> {{ task.author }}</a>
+                                            <small class="ms-2">{{ task.date_posted }}</small>
+                                        </div>
+                                        <hr>
+                                        <a 
+                                            style="text-decoration: none;" 
+                                            href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                            class="detail-link d-block"
+                                            data-bs-target="#taskDetailModal"
+                                            data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                        ><small>Comments: {{ task.comments.count }}</small></a>
+                                        <button class="badge bg-warning rounded-pill text-dark border border-warning w-25">{{ task.label }}</button>
+                                        <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}  
+                    {% endfor %}
+                </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="issues-list-wrapper py-2">
+                <h5 class="list-title mb-3">Closed</h5>
+                <div class="issues-list py-2">
+                    {% for task in closed_tasks %}
+                        {% if board_id == task.board.id %}
+                            <div class="d-flex align-items-stretch">
+                                <div class="card text-dark mb-4 w-100 rounded issue-card">
+                                    <div class="card-body">
+                                        <a 
+                                            href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                            class="detail-link" 
+                                            data-bs-target="#taskDetailModal"
+                                            data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                        ><h3>{{ task.title }}</h3></a>
+                                        <div class="issue-meta">
+                                            <a href="#" class="blue-link"> {{ task.author }}</a>
+                                            <small class="ms-2">{{ task.date_posted }}</small>
+                                        </div>
+                                        <hr>
+                                        <a 
+                                            style="text-decoration: none;" 
+                                            href="{% url 'task-detail' board_id=board_id pk=task.id %}" 
+                                            class="detail-link d-block"
+                                            data-bs-target="#taskDetailModal"
+                                            data-target-url="{% url 'task-detail' board_id=board_id pk=task.id %}"
+                                        ><small>Comments: {{ task.comments.count }}</small></a>
+                                        <button class="badge bg-warning rounded-pill text-dark border border-warning w-25">{{ task.label }}</button>
+                                        <small style="display: block; margin-top: 10px;">Updated on {{ task.last_updated }}</small>
+                                    </div>
+                                </div>
+                            </div>   
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div> 
+          </div>
         </div>
+      </div>
+</div>
+<div class="custom-indicators">
+    <div class="carousel-indicators position-relative">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="indy-btn active bg-dark" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="indy-btn bg-dark" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="indy-btn bg-dark" aria-label="Slide 3"></button>
     </div>
+</div>
+  
    
     
 {% endblock content %}

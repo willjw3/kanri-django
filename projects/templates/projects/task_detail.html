@@ -1,57 +1,55 @@
 {% load crispy_forms_tags %}
-    <div class="issues-list">
-        <div class="issue-full">
-            <h2 id="super-title">{{ object.title }}</h2>
+    <div class="issue-full">
+        <h2 id="super-title">{{ object.title }}</h2>
+        <div class="issue-meta">
+            <small class="me-1">Posted by</small>
+            <a href="#" class="blue-link"> {{ task.author }}</a>
+            <small class="ms-1">on {{ task.date_posted }}</small>
+        </div>
+        <button class="badge bg-warning rounded-pill text-dark label-badge">{{ object.label }}</button> 
+        <hr>
+        <section class="py-2">
+            <h5><u>Details</u></h5>
+            <p>{{ object.content }}</p>
+        </section>
+        <hr>
+        <section class="py-2">
+            <small style="display: block;">Assigned to: <span style="color: dodgerblue;">{{ object.assigned_to }}</span></small>
+            <small style="display: block;">Status: {{ object.status }}</small>
+            <small style="display: block;">Last Updated: {{ object.last_updated }}</small>
+        </section>
+        {% if object.author == user %}
+            <div class="action-box">
+                
+            </div>
+        {% endif %} 
+        <hr>
+        <div class="comment-list-meta">
+            <form action="{% url 'task-detail' board_id=board_id pk=object.id %}" method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="form-legend">Add Comment</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                {% if user.email == 'kanridemo@kanri.com' %}
+                    <p class="alert alert-danger text-center mx-auto w-75">Sorry. New comments cannot not be posted with a demo account. Create your own account for full app functionality.</p>
+                {% endif %}
+                <div class="form-group">
+                    <button id="comment-submit" class="btn btn-secondary" type="submit">Post</button>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <h2 id="comments">All Comments...</h2>
+        {% for comment in object.comments.all %}
             <div class="issue-meta">
-                <small class="me-1">Posted by</small>
-                <a href="#" class="blue-link"> {{ task.author }}</a>
-                <small class="ms-1">on {{ task.date_posted }}</small>
+                <a href="#" class="blue-link">{{ comment.author }}</a>
+                <small class="ms-2">{{ comment.posted_on }}</small>
             </div>
-            <button class="badge bg-warning rounded-pill text-dark label-badge">{{ object.label }}</button> 
-            <hr>
-            <section class="py-2">
-                <h5><u>Details</u></h5>
-                <p>{{ object.content }}</p>
+            <section class="py-2 px-1 bg-light rounded">
+                <p>{{ comment.content|linebreaks }}</p>
             </section>
-            <hr>
-            <section class="py-2">
-                <small style="display: block;">Assigned to: <span style="color: dodgerblue;">{{ object.assigned_to }}</span></small>
-                <small style="display: block;">Status: {{ object.status }}</small>
-                <small style="display: block;">Last Updated: {{ object.last_updated }}</small>
-            </section>
-            {% if object.author == user %}
-                <div class="action-box">
-                    
-                </div>
-            {% endif %} 
-            <hr>
-            <div class="comment-list-meta">
-                <form action="{% url 'task-detail' object.id %}" method="POST">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-                        <legend class="form-legend">Add Comment</legend>
-                        {{ form|crispy }}
-                    </fieldset>
-                    {% if user.email == 'btdemo@bugtracker.com' %}
-                        <p class="alert alert-danger text-center mx-auto w-75">Sorry. New comments cannot not be posted with a demo account. Create your own account for full app functionality.</p>
-                    {% endif %}
-                    <div class="form-group">
-                        <button id="comment-submit" class="btn btn-secondary" type="submit">Post</button>
-                    </div>
-                </form>
-            </div>
-            <hr>
-            <h2 id="comments">All Comments...</h2>
-            {% for comment in object.comments.all %}
-                <div class="issue-meta">
-                    <a href="#" class="blue-link">{{ comment.author }}</a>
-                    <small class="ms-2">{{ comment.posted_on }}</small>
-                </div>
-                <section class="py-2 px-1 bg-light rounded">
-                    <p>{{ comment.content|linebreaks }}</p>
-                </section>
-            {% empty %}
-                <p>No comments here yet :(</p>
-            {% endfor %}
-        </div>  
-    </div>
+        {% empty %}
+            <p>No comments here yet :(</p>
+        {% endfor %}
+    </div>  

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
@@ -107,12 +107,13 @@ class TaskListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['board_id'] = self.kwargs['board_id']
+        board_id = self.kwargs['board_id']
+        context['board_id'] = board_id
+        context['board_name'] = Board.objects.get(id=board_id)
         context['todo_tasks'] = Task.objects.filter(status='TODO')
         context['in_progress_tasks'] = Task.objects.filter(status='IN PROGRESS')
         context['closed_tasks'] = Task.objects.filter(status='CLOSED')
         context['form'] = TaskForm()
-        print(context['board_id'])
         return context
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
@@ -121,17 +122,18 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     template_name = 'projects/task_form.html'
 
     def form_valid(self, form):
-        issue = form.save(commit=False)
+        task = form.save(commit=False)
+        task.board_id = self.kwargs['board_id']
         form.instance.author = self.request.user
         if form.instance.author.email == "kanridemo@kanri.com":
             messages.warning(self.request, f'Issue not saved. You are using a demo account. Demo accounts do not have write permissions. Create an account to enjoy full app functionality.')
-            return redirect('tasks')
-        issue.save()
+            return redirect('board-detail')
+        task.save()
         return super().form_valid(form)
 
     def get_success_url(self):
-        task = self.get_object()
-        return reverse('tasks', kwargs={'pk': task.board.pk})
+        return reverse('board-detail', kwargs={'board_id': self.kwargs['board_id']})
+        # return reverse('boards')
 
 
 class BoardDetailView(View):
@@ -161,24 +163,25 @@ class CommentCreateView(SingleObjectMixin, FormView):
     def form_valid(self, form):
         comment = form.save(commit=False)
         form.instance.author = self.request.user
-        if not form.instance.author.email == "btdemo@bugtracker.com":
+        if not form.instance.author.email == "kanridemo@kanri.com":
             comment.task = self.object
             comment.save()
         return super().form_valid(form)
     
     def get_success_url(self):
-        task = self.get_object()
-        return reverse('board-detail', kwargs={'board_id': task.board.pk})
+        return reverse('board-detail', kwargs={'board_id': self.kwargs['board_id']})
         # return reverse('issues-home')
 
 class TaskDisplayView(DetailView):
     model = Task
     context_object_name = 'task'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        board_id = self.kwargs['board_id']
+        context['board_id'] = board_id
         context['form'] = CommentForm()
-
         return context
 
 class TaskDetailView(View):

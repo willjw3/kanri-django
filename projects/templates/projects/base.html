@@ -124,9 +124,6 @@
                 <main>
                     <div class="container-fluid px-4">
                         <h6 class="mt-4">Logged in as <span class="text-primary">{{ user }}</span></h6>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">My Dashboard</li>
-                        </ol>
                         <hr>
                         {% block content %}{% endblock %}
                     </div>
@@ -217,13 +214,23 @@
             })
             
     
-            // Create new issue      
-            $(".issue-create-link").click(function(e) {
+            // Create new board      
+            $(".board-create-link").click(function(e) {
               e.preventDefault();
               var $boardModal = $("#boardModal");
               var target_url = $(this).data("target-url");
               $(".modal-body", $boardModal).load(target_url, function() {
                 $boardModal.modal("show")
+              })
+            });
+
+            // Create new task      
+            $(".issue-create-link").click(function(e) {
+              e.preventDefault();
+              var $taskModal = $("#taskModal");
+              var target_url = $(this).data("target-url");
+              $(".modal-body", $taskModal).load(target_url, function() {
+                $taskModal.modal("show")
               })
             })
     
@@ -231,12 +238,12 @@
             // Show and update issue details
             $(".detail-link").click(function (e) {
               e.preventDefault();
-              var $issueDetailModal = $("#issueDetailModal");
+              var $taskDetailModal = $("#taskDetailModal");
               var target_url = $(this).data("target-url");
               
-              $(".modal-body", $issueDetailModal).load(target_url, function() {
+              $(".modal-body", $taskDetailModal).load(target_url, function() {
     
-                $issueDetailModal.modal("show");
+                $taskDetailModal.modal("show");
     
                 $("#update-link").click(function (e) {
                   e.preventDefault();

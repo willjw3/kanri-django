@@ -1,0 +1,18 @@
+{% load crispy_forms_tags %}
+    <div>
+        {% if user.email == 'kanridemo@kanri.com' %}
+            <p class="alert alert-danger text-center mx-auto w-75">Sorry. New issues cannot not be posted with a demo account. Create your own account for full app functionality.</p>
+        {% endif %}
+        <div class="form-content-section">
+            <form class="issue-form" action="" method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="form-legend">Edit Task</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>

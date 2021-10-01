@@ -5,7 +5,8 @@ from .views import (
     BoardDetailView, 
     TaskCreateView,
     TaskDetailView, 
-    TaskDisplayView
+    TaskDisplayView,
+    CommentCreateView
 )
 from . import views
 
@@ -15,7 +16,8 @@ urlpatterns = [
     path('boards/', AllBoardsView.as_view(), name='boards'),
     path('boards/#boardModal', BoardCreateView.as_view(), name='board-create'),
     path('boards/<int:board_id>/', BoardDetailView.as_view(), name='board-detail'),
-    path('boards/<int:board_id>/task/<int:task_id>/', TaskDisplayView.as_view(), name='task-detail'),
-    # path('boards/<int:pk>/#taskModal', TaskCreateView.as_view(), name='task-create'),
+    path('boards/<int:pk>/#taskModal', TaskCreateView.as_view(), name='task-create'),
+    path('boards/<int:board_id>/task/<int:pk>/', TaskDetailView.as_view(), name='task-detail'),
+    path('boards/comment/new', CommentCreateView.as_view(), name='comment-create')
     
 ]

@@ -12,11 +12,6 @@
 }
 
 
-.list-title {
-    text-align: center;
-    margin: 10px;
-}
-
 /* Header Styles */
 
 
@@ -76,7 +71,6 @@
 .issues-list-wrapper {
     width: 450px;
     margin: 0 5px;
-    background-color: lightgray;
     border-radius: 2px;
 }
 
@@ -84,27 +78,12 @@
     display: flex;
     flex-direction: column;
     
-    
-}
-.issue-clip {
-    margin: 0 10px;
-    margin-bottom: 10px;
-    padding: 10px 10px;
-    box-shadow: 0 0 4px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-.issue-clip h2 {
-    margin: 0;
 }
 
-.issue-full {
-    max-width: 550px;
-    margin: auto;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: lightgray;
+.issue-card {
+    background-color: #ebecf0;
 }
+
 
 .issue-meta {
     display: flex;
@@ -147,6 +126,12 @@
 }
 
 /* Issue Detail Page*/
+.issue-full {
+    padding: 20px;
+    border-radius: 5px;
+    background-color: lightgray;
+} 
+
 .detail-link {
     text-decoration: none;
     color: #000000;
