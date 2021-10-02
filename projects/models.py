@@ -25,7 +25,7 @@ class Task(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField(blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin')
     assigned_to = models.CharField(max_length=50, choices=USERS, default='admin')
     status = models.CharField(max_length=20, choices=STATUSES, default='OPEN')
     label = models.CharField(max_length=30, default='')

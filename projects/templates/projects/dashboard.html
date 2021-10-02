@@ -128,44 +128,6 @@
                             <li class="breadcrumb-item active">My Dashboard</li>
                         </ol>
                         <hr>
-                        <!-- <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
@@ -205,7 +167,7 @@
                                     <thead>
                                         <tr>
                                             <th>name</th>
-                                            <th>issue</th>
+                                            <th>task</th>
                                             <th>date posted</th>
                                             <th>label</th>
                                             <th>status</th>
@@ -215,7 +177,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>name</th>
-                                            <th>issue</th>
+                                            <th>task</th>
                                             <th>date posted</th>
                                             <th>label</th>
                                             <th>status</th>
@@ -223,19 +185,19 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        {% if issues %}
-                                        {% for issue in issues %}
+                                        {% if tasks %}
+                                        {% for task in tasks %}
                                             <tr>
-                                                <td>{{ issue.author }}</td>
-                                                <td><a href="{% url 'issue-detail' issue.id %}">{{ issue.title }}</a></td>
-                                                <td>{{ issue.date_posted }}</td>
-                                                <td>{{ issue.label }}</td>
-                                                <td>{{ issue.status }}</td>
-                                                <td>{{ issue.comments.count }}</td>
+                                                <td>{{ task.author }}</td>
+                                                <td><a href="{% url 'task-detail' board_id=board_id pk=task.id %}">{{ task.title }}</a></td>
+                                                <td>{{ task.date_posted }}</td>
+                                                <td>{{ task.label }}</td>
+                                                <td>{{ task.status }}</td>
+                                                <td>{{ task.comments.count }}</td>
                                             </tr>
                                         {% endfor %}
                                         {% else %}
-                                            <p>No isssues to display.</p>
+                                            <p>No tasks to display.</p>
                                         {% endif %}
                                     </tbody>
                                 </table>
@@ -261,8 +223,8 @@
         <script src="{% static 'projects/js/scripts.js' %}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="{% static 'projects/assets/chart-bar.js' %}"></script>
-        {{ issue_counts|json_script:"issue_count_data" }}
-        {{ assigned_issue_counts|json_script:"assigned_issue_count_data" }}
+        {{ task_counts|json_script:"task_count_data" }}
+        {{ assigned_task_counts|json_script:"assigned_task_count_data" }}
         <script src="{% static 'projects/assets/chart-pie.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="{% static 'projects/js/datatables-simple-demo.js' %}"></script>

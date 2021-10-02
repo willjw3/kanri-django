@@ -1,12 +1,12 @@
 // Pie Chart 
-const issue_counts = JSON.parse(document.getElementById('issue_count_data').textContent);
-const statuses = Object.keys(issue_counts);
-const status_counts = Object.values(issue_counts);
+const task_counts = JSON.parse(document.getElementById('task_count_data').textContent);
+const statuses = Object.keys(task_counts);
+const status_counts = Object.values(task_counts);
 
 if (statuses.length === 0) {
-  let postedIssues = document.getElementById("postedIssues");
-  postedIssues.textContent = "No Data To Display";
-  postedIssues.classList.add("alert", "alert-danger");
+  let postedTasks = document.getElementById("postedTasks");
+  postedTasks.textContent = "No Data To Display";
+  postedTasks.classList.add("alert", "alert-danger");
 } else {
   var ctx = document.getElementById("postedIssuePie");
   var myPieChart = new Chart(ctx, {
@@ -21,14 +21,14 @@ if (statuses.length === 0) {
   });
 }
 
-const assigned_issue_counts = JSON.parse(document.getElementById('assigned_issue_count_data').textContent);
-const assigned_statuses = Object.keys(assigned_issue_counts);
-const assigned_status_counts = Object.values(assigned_issue_counts);
+const assigned_task_counts = JSON.parse(document.getElementById('assigned_task_count_data').textContent);
+const assigned_statuses = Object.keys(assigned_task_counts);
+const assigned_status_counts = Object.values(assigned_task_counts);
 
 if (assigned_statuses.length === 0) {
-  let assignedIssues = document.getElementById("assignedIssues");
-  assignedIssues.classList.add("alert", "alert-danger");
-  assignedIssues.textContent = "No Data To Display";
+  let assignedTasks = document.getElementById("assignedTasks");
+  assignedTasks.classList.add("alert", "alert-danger");
+  assignedTasks.textContent = "No Data To Display";
 
 } else {
   var ctx_assigned = document.getElementById("assignedIssuePie");
