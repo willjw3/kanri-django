@@ -36,10 +36,16 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                          {% if user.is_authenticated %}
                             <li><a class="dropdown-item" href="{% url 'dashboard' %}">My Dashboard</a></li>
                             <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                          {% else %}
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Have an account? <span class="text-primary">Login</span></a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="{% url 'register' %}">Need an account? <span class="text-primary">Register</span></a></li>
+                            <li><a class="dropdown-item" href="{% url 'landing' %}">Go to our <span class="text-primary">home page</span></a></li>
+                          {% endif %}
                         </ul>
                     </li>
                 </ul>
@@ -47,7 +53,8 @@
             
         </nav>
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
+            {% if user.is_authenticated %}
+              <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
@@ -119,13 +126,18 @@
                         Start Bootstrap
                     </div>
                 </nav>
-            </div>
+              </div>
+            {% endif %}
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
+                      {% if not user.is_authenticated %}
+                        <h6 class="mt-4">Not currently logged in.</h6>
+                      {% else %}
                         <h6 class="mt-4">Logged in as <span class="text-primary">{{ user }}</span></h6>
-                        <hr>
-                        {% block content %}{% endblock %}
+                      {% endif %}
+                      <hr>
+                      {% block content %}{% endblock %}
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

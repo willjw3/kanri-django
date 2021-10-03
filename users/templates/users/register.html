@@ -1,0 +1,25 @@
+{% extends "projects/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    <div class="form-content-section">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="form-legend">Create an Account</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Sign Up</button>
+            </div>
+        </form>
+        <div class="cta-container">
+            <small>Already Have An Account? <a class="blue-link" style="margin-left: 5px;" href="{% url 'login' %}">Sign In</a>
+
+            </small>
+        </div>
+    </div>
+    <div class="login-image-wrapper">
+        <img class="landing-image img-fluid" style="width: 100%;" src="{% static 'projects/images/login-logout.svg' %}" alt="pair of people working with mobile and desktop layout illustration"> 
+    </div>
+{% endblock content %}

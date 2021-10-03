@@ -1,0 +1,40 @@
+{% extends "projects/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    <div class="messages-container">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <small class="alert alert-{{ message.tags }} text-center w-75 mx-auto d-block">{{ message }}</small>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="form-content-section">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="form-legend">Log In</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Login</button>
+                <small style="display: block;" class="py-2">
+                    <a class="blue-link" href="{% url 'password_reset' %}">Forgot your password?</a>
+                </small>
+            </div>
+        </form>
+        <div class="cta-container">
+            <small class="d-block">Don't have an account? 
+                <a class="blue-link" style="margin-left: 5px;" href="{% url 'register' %}">Sign Up</a>
+            </small>
+            <small class="text-danger">Demo account - No need to sign up 
+                <a class="blue-link" style="margin-left: 5px;" href="{% url 'login_demo' %}">Click here</a>
+            </small>
+        </div>
+    </div>
+    <div class="login-image-wrapper">
+        <img class="landing-image img-fluid" style="width: 100%;" src="{% static 'projects/images/login-logout.svg' %}" alt="pair of people working with mobile and desktop layout illustration"> 
+    </div>
+{% endblock content %}

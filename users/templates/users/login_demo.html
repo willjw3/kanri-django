@@ -1,0 +1,26 @@
+{% extends "projects/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    <div class="form-content-section">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="form-legend">Demo Account Login</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Go to Dashboard</button>
+            </div>
+        </form>
+        <p class="text-danger">Demo account users cannot save data to the database. This account is for demonstration purposes only.</p>
+        <div class="cta-container">
+            <small>Want full functionality? <a class="blue-link" style="margin-left: 5px;" href="{% url 'register' %}">Create Account</a>
+
+            </small>
+        </div>
+    </div>
+    <div class="login-image-wrapper">
+        <img class="landing-image img-fluid" style="width: 100%;" src="{% static 'projects/images/login-logout.svg' %}" alt="pair of people working with mobile and desktop layout illustration"> 
+    </div>
+{% endblock content %}

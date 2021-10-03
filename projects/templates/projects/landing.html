@@ -48,14 +48,13 @@
                       </a>
                       {% if user.is_authenticated %}
                         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'dashboard' %}">My Dashboard</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                         </ul>
                       {% else %}
                         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                            <li><a class="dropdown-item" href="#">Login</a></li>
-                            <li><a class="dropdown-item" href="#">Create Account</a></li>
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                            <li><a class="dropdown-item" href="{% url 'register' %}">Create Account</a></li>
                         </ul>
                       {% endif %}
                     </li>
