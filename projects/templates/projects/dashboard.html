@@ -124,16 +124,13 @@
                 <main>
                     <div class="container-fluid px-4">
                         <h6 class="mt-4">Logged in as <span class="text-primary">{{ user }}</span></h6>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">My Dashboard</li>
-                        </ol>
                         <hr>
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-pie me-1"></i>
-                                        Issues Posted By Me (last 30 days)
+                                        Tasks Posted By Me (last 30 days)
                                     </div>
                                     <div id="postedIssues" class="card-body"><canvas id="postedIssuePie" width="100%" height="40"></canvas></div>
                                 </div>
@@ -142,12 +139,12 @@
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-pie me-1"></i>
-                                        Issues Assigned To Me (last 30 days)
+                                        Tasks Assigned To Me (last 30 days)
                                     </div>
                                     <div id="assignedIssues" class="card-body"><canvas id="assignedIssuePie" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
@@ -155,12 +152,12 @@
                                     </div>
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                All issues posted by <span class="text-primary">{{ user }}</span> 
+                                All tasks posted by <span class="text-primary">{{ user }}</span> 
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -186,16 +183,16 @@
                                     </tfoot>
                                     <tbody>
                                         {% if tasks %}
-                                        {% for task in tasks %}
-                                            <tr>
-                                                <td>{{ task.author }}</td>
-                                                <td><a href="{% url 'task-detail' board_id=board_id pk=task.id %}">{{ task.title }}</a></td>
-                                                <td>{{ task.date_posted }}</td>
-                                                <td>{{ task.label }}</td>
-                                                <td>{{ task.status }}</td>
-                                                <td>{{ task.comments.count }}</td>
-                                            </tr>
-                                        {% endfor %}
+                                            {% for task in tasks %}
+                                                <tr>
+                                                    <td>{{ task.author }}</td>
+                                                    <td>{{ task.title }}</td>
+                                                    <td>{{ task.date_posted }}</td>
+                                                    <td>{{ task.label }}</td>
+                                                    <td>{{ task.status }}</td>
+                                                    <td>{{ task.comments.count }}</td>
+                                                </tr>
+                                            {% endfor %}
                                         {% else %}
                                             <p>No tasks to display.</p>
                                         {% endif %}

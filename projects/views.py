@@ -30,32 +30,33 @@ def dashboard(request):
 
     last_month = aware_datetime - timedelta(days=30)
     
-    # issue_counts = {}
-    # issue_statuses = [issue.status for issue in Issue.objects.filter(author=request.user, date_posted__gte=last_month)]
-    # for issue in issue_statuses:
-    #     if issue in issue_counts:
-    #         issue_counts[issue] += 1
-    #     if issue not in issue_counts:
-    #         issue_counts[issue] = 1
+    task_counts = {}
+    task_statuses = [task.status for task in Task.objects.filter(author=request.user, date_posted__gte=last_month)]
+    for task in task_statuses:
+        if task in task_counts:
+            task_counts[task] += 1
+        if task not in task_counts:
+            task_counts[task] = 1
     
-
-    # assigned_issue_counts = {}
-    # assigned_issue_statuses = [issue.status for issue in Issue.objects.filter(assigned_to=request.user, date_posted__gte=last_month)]
-    # for issue in assigned_issue_statuses:
-    #     if issue in assigned_issue_counts:
-    #         assigned_issue_counts[issue] += 1
-    #     if issue not in assigned_issue_counts:
-    #         assigned_issue_counts[issue] = 1
-
-
-    # context = {
-    #     'issues': Issue.objects.filter(author=request.user),
-    #     'users': [user.username for user in User.objects.all()],
-    #     'issue_counts': issue_counts,
-    #     'assigned_issue_counts': assigned_issue_counts
-    # }
     
-    return render(request, 'projects/dashboard.html')
+    assigned_task_counts = {}
+    assigned_task_statuses = [task.status for task in Task.objects.filter(assigned_to=request.user, date_posted__gte=last_month)]
+    for task in assigned_task_statuses:
+        if task in assigned_task_counts:
+            assigned_task_counts[task] += 1
+        if task not in assigned_task_counts:
+            assigned_task_counts[task] = 1
+
+
+    context = {
+        'tasks': Task.objects.filter(author=request.user),
+        'users': [user.username for user in User.objects.all()],
+        'task_counts': task_counts,
+        'assigned_task_counts': assigned_task_counts
+    }
+
+    
+    return render(request, 'projects/dashboard.html', context)
 
 
 def boards(request):
