@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import environ, os
+import django_heroku
 
 # Initialize environment variables
 env = environ.Env()
@@ -151,3 +152,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('MY_GMAIL')
 EMAIL_HOST_PASSWORD = env('GMAIL_PW')
+
+django_heroku.settings(locals())
