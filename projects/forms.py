@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.forms import widgets
 from .models import Board, Task, Comment
 
@@ -10,7 +11,7 @@ class BoardForm(forms.ModelForm):
     
 
 class TaskForm(forms.ModelForm):
-    
+    assigned_to = forms.ModelChoiceField(queryset=User.objects.all(), empty_label='(Select One)')
     class Meta:
         model = Task 
         fields = ('title', 'content', 'label', 'assigned_to', 'status')

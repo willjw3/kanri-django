@@ -18,7 +18,6 @@ class Board(models.Model):
         return self.name
 
 class Task(models.Model):
-    USERS = [(user.username, user.username) for user in User.objects.all()]
     STATUSES = [('TODO', "todo"), ('IN PROGRESS', "in progress"), ('CLOSED', "closed")]
     
     board = models.ForeignKey(Board, on_delete=models.CASCADE, related_name='tasks', default=1)
@@ -26,7 +25,7 @@ class Task(models.Model):
     content = models.TextField(blank=True)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='admin')
-    assigned_to = models.CharField(max_length=50, choices=USERS, default='admin')
+    assigned_to = models.CharField(max_length=50, default='admin')
     status = models.CharField(max_length=20, choices=STATUSES, default='OPEN')
     label = models.CharField(max_length=30, default='')
     last_updated = models.DateTimeField(auto_now=True)
