@@ -1,0 +1,1 @@
+web: gunicorn kanri.wsgi:application --log-file -
