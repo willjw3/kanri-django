@@ -21,6 +21,6 @@ class LoginDemoForm(AuthenticationForm):
         super(LoginDemoForm, self).__init__(*args, **kwargs)
 
 
-    username = forms.CharField(widget=forms.HiddenInput(), initial="kanridemo")
-    password = forms.CharField(widget=forms.HiddenInput(), initial="testing987")
+    username = forms.CharField(widget=forms.HiddenInput(), initial="kanri_demo")
+    password = forms.CharField(widget=forms.HiddenInput(), initial="testuser987")
 
