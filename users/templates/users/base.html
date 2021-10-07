@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Kanri | Home</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link rel="stylesheet" type="text/css" href="{% static 'projects/css/global2.css' %}">
+    </head>
+    <body class="d-flex flex-column min-vh-100 justify-content-between">
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid mx-5">
+              <a class="navbar-brand nav-logo text-white" href="{% url 'landing' %}">
+                  <img class="img-fluid" width="40px" src="{% static 'projects/images/kanri_icon.svg' %}" alt="Kanri Logo">
+                  KANRI
+                </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Services</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                  </li>
+                </ul>
+                <ul class="navbar-nav d-flex justify-content-right my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    {% if user.is_authenticated %}
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                      </li>
+                      
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                       <i class="fas fa-user me-2"></i>Users
+                      </a>
+                      {% if user.is_authenticated %}
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="{% url 'dashboard' %}">My Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                      {% else %}
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                            <li><a class="dropdown-item" href="{% url 'register' %}">Create Account</a></li>
+                        </ul>
+                      {% endif %}
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Docs</a>
+                    </li>
+                  </ul>
+              </div>
+            </div>
+          </nav>
+        <!-- Header-->
+        {% block content %}{% endblock %}
+        <!-- Footer-->
+        <footer class="py-5 bg-dark d-flex flex-column">
+            <a class="nav-logo text-center text-decoration-none text-light" href="{% url 'landing' %}">
+                <img class="img-fluid" width="40px" src="{% static 'projects/images/kanri_icon.svg' %}" alt="Kanri Logo">
+                KANRI
+              </a>
+            <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; 2021</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

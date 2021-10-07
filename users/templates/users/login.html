@@ -1,8 +1,8 @@
-{% extends "projects/base.html" %}
+{% extends "users/base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-    <div class="messages-container">
+    <div class="messages-container mt-5">
         {% if messages %}
             <div class="messages">
                 {% for message in messages %}
