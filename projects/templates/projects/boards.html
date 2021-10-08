@@ -7,6 +7,15 @@
         data-bs-target="#boardsModal"
         data-target-url="{% url 'board-create' %}"
     ><i class="fas fa-plus-circle"></i> Add a Board</a>
+    <div class="messages-container">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <small class="alert alert-{{ message.tags }} text-center w-75 mx-auto d-block">{{ message }}</small>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
     <h3 class="mt-4">Active Boards</h3>
     <div class="row mt-4">
         {% if active_boards %}

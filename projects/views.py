@@ -85,12 +85,12 @@ class BoardCreateView(LoginRequiredMixin, CreateView):
     template_name = 'projects/board_form.html'
 
     def form_valid(self, form):
-        issue = form.save(commit=False)
+        board = form.save(commit=False)
         form.instance.author = self.request.user
         if form.instance.author.email == "kanridemo@kanri.com":
-            messages.warning(self.request, f'Issue not saved. You are using a demo account. Demo accounts do not have write permissions. Create an account to enjoy full app functionality.')
+            messages.warning(self.request, f'Board not saved. You are using a demo account. Demo accounts do not have write permissions. Create an account to enjoy full app functionality.')
             return redirect('boards')
-        issue.save()
+        board.save()
         return super().form_valid(form)
 
     def get_success_url(self):
