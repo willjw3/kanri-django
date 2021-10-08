@@ -20,11 +20,14 @@ from django.conf import settings
 from django.utils.timezone import make_aware
 
 
+# Landing Page View
 def landing(request):
     return render(request, 'projects/landing.html', {'title': 'Kanri | Welcome'})
 
+# User's Personal Dashboard View
 def dashboard(request):
 
+    # Get user stats for last 30 days
     naive_datetime = datetime.now()
     aware_datetime = make_aware(naive_datetime)
 
@@ -62,7 +65,7 @@ def dashboard(request):
 def boards(request):
     return render(request, 'projects/boards.html', {'title': 'Kanri | Welcome'})
 
-
+# Boards Home Page View
 class BoardListView(LoginRequiredMixin, ListView):
     model = Board
     template_name = 'projects/boards.html'
@@ -73,6 +76,7 @@ class BoardListView(LoginRequiredMixin, ListView):
         context['inactive_boards'] = Board.objects.filter(status='INACTIVE')
         context['closed_boards'] = Board.objects.filter(status='CLOSED')
         context['form'] = BoardForm()
+        context['title'] = 'All Boards'
         return context
 
 class BoardCreateView(LoginRequiredMixin, CreateView):
