@@ -131,7 +131,7 @@
                   });
     
     
-            // Check if Issue Detail modal needs to be open and open it if necessary
+            // Check if Task Detail modal needs to be open and open it if necessary
             $(document).ready(function() {
               var modalId = localStorage.getItem('openModal');
               if (modalId !== null) {
@@ -187,6 +187,21 @@
               })
             });
 
+
+            // Show and update board details
+            $(".board-info-link").click(function (e) {
+              e.preventDefault();
+              var $boardDetailModal = $("#boardDetailModal");
+              var target_url = $(this).data("target-url");
+              
+              $(".modal-body", $boardDetailModal).load(target_url, function() {
+    
+                $boardDetailModal.modal("show");
+
+              });
+            });
+
+
             // Create new task      
             $(".issue-create-link").click(function(e) {
               e.preventDefault();
@@ -198,7 +213,7 @@
             })
     
     
-            // Show and update issue details
+            // Show and update task details
             $(".detail-link").click(function (e) {
               e.preventDefault();
               var $taskDetailModal = $("#taskDetailModal");

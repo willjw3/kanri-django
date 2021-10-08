@@ -115,6 +115,7 @@ class TaskListView(LoginRequiredMixin, ListView):
         board_id = self.kwargs['board_id']
         context['board_id'] = board_id
         context['board_name'] = Board.objects.get(id=board_id)
+        context['board_desc'] = Board.objects.get(id=board_id).about
         context['todo_tasks'] = Task.objects.filter(status='TODO')
         context['in_progress_tasks'] = Task.objects.filter(status='IN PROGRESS')
         context['closed_tasks'] = Task.objects.filter(status='CLOSED')

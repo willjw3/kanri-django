@@ -7,7 +7,7 @@ class Board(models.Model):
     STATUSES = [('ACTIVE', "active"), ('INACTIVE', "inactive"), ('CLOSED', "closed")]
 
     name = models.CharField(max_length=100)
-    about = models.TextField(default='')
+    about = models.CharField(max_length=200)
     status = models.CharField(max_length=20, choices=STATUSES, default='ACTIVE')
     created_on = models.DateTimeField(default=timezone.now)
 
