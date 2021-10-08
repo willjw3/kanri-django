@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <p class="font-weight-bold">Current Board: <span class="text-primary">{{ board_name }}</span></p>
+    <p>Info: {{ board_desc }}</p>
     <a 
         href="{% url 'task-create' pk=board_id %}"
         class="btn btn-secondary mx-auto issue-create-link sticky-top"  
