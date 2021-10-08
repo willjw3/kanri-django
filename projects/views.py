@@ -128,7 +128,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         if form.instance.author.email == "kanridemo@kanri.com":
             messages.warning(self.request, f'Issue not saved. You are using a demo account. Demo accounts do not have write permissions. Create an account to enjoy full app functionality.')
-            return redirect('board-detail')
+            return redirect(reverse('board-detail', kwargs={'board_id': self.kwargs['board_id']}))
         task.save()
         return super().form_valid(form)
 
