@@ -2,6 +2,10 @@
  
 ## KANRI
 ### *A project management tool prototype*  
+<br>
+<img width="500px" src="https://www.dropbox.com/s/ze1oegkoz1feyhx/kanri_screenshot.png?raw=1" alt="Kanri Screenshot">
+<br>  
+<br>  
 
 **Built with**   
 ![Django Tag](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green)
@@ -10,7 +14,11 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![HTML5 Tag](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3 Tag](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) 
+<br>  
 
+### Live Demo  
+[Kanri](https://kanri-django.herokuapp.com)
+<br>  
 
 ### Run Locally 
 
@@ -23,3 +31,5 @@
 4. Run `python manage.py makemigrations` and `python manage.py migrate`    
 5. Create a super user      
     `python manage.py createsuperuser`
+6. Run the web server 
+    `python manage.py runserver`
